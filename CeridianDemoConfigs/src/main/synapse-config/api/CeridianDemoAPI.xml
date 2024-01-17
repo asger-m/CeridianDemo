@@ -18,10 +18,10 @@
     <resource methods="GET" uri-template="/employee/{xref}">
         <inSequence>
             <ceridiandayforce.init>
-                <username>$FILE:ceridian.username</username>
-                <password>${ceridian.password}</password>
-                <clientNamespace>${ceridian.user.domain}</clientNamespace>
-                <apiVersion>${ceridian.api.version}</apiVersion>
+                <username>$SYSTEM:ceridian.username</username>
+                <password>$SYSTEM:ceridian.password</password>
+                <clientNamespace>$SYSTEM:ceridian.user.domain</clientNamespace>
+                <apiVersion>$SYSTEM:ceridian.api.version</apiVersion>
             </ceridiandayforce.init>
             <ceridiandayforce.getEmployeeDetails>
                 <xRefCode>{get-property('uri.var.xref')}</xRefCode>
