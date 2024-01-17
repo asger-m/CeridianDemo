@@ -3,7 +3,7 @@
     <resource methods="GET" uri-template="/employees">
         <inSequence>
             <ceridiandayforce.init>
-                <username>$FILE:ceridianUsername</username>
+                <username>DFWSTest</username>
                 <password>DFWSTest</password>
                 <clientNamespace>ustest232-services.dayforcehcm.com/Api/ddn</clientNamespace>
                 <httpRequestTimeout>10000</httpRequestTimeout>
