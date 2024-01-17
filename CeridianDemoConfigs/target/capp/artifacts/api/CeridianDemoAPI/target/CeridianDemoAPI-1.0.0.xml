@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<api context="/ceridian" name="CeridianDemoAPI" xmlns="http://ws.apache.org/ns/synapse">
+    <resource methods="GET" uri-template="/employees">
+        <inSequence>
+            <ceridiandayforce.init>
+                <username>DFWSTest</username>
+                <password>DFWSTest</password>
+                <clientNamespace>ustest232-services.dayforcehcm.com/Api/ddn</clientNamespace>
+                <httpRequestTimeout>10000</httpRequestTimeout>
+                <apiVersion>V1</apiVersion>
+            </ceridiandayforce.init>
+            <ceridiandayforce.getEmployees/>
+            <send/>
+        </inSequence>
+        <outSequence/>
+        <faultSequence/>
+    </resource>
+    <resource methods="GET" uri-template="/employee/{xref}">
+        <inSequence>
+            <ceridiandayforce.init>
+                <username>DFWSTest</username>
+                <password>DFWSTest</password>
+                <clientNamespace>ustest232-services.dayforcehcm.com/Api/ddn</clientNamespace>
+                <apiVersion>V1</apiVersion>
+            </ceridiandayforce.init>
+            <ceridiandayforce.getEmployeeDetails>
+                <xRefCode>{get-property('uri.var.xref')}</xRefCode>
+            </ceridiandayforce.getEmployeeDetails>
+            <send/>
+        </inSequence>
+        <outSequence/>
+        <faultSequence/>
+    </resource>
+</api>

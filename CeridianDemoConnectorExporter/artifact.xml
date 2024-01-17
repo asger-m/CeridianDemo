@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?><artifacts>
+    <artifact name="ceridiandayforce-connector" groupId="dk.redpill.lib" version="1.0.1" type="synapse/lib" serverRole="EnterpriseServiceBus">
+        <file>ceridiandayforce-connector-1.0.1.zip</file>
+    </artifact>
+    <artifact name="ceridiandayforce-connector" groupId="dk.redpill.lib" version="1.0.1" type="synapse/lib" serverRole="EnterpriseServiceBus">
+        <file>ceridiandayforce-connector-1.0.1.zip</file>
+    </artifact>
+</artifacts>

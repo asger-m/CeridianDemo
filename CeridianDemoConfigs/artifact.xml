@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?><artifacts>
+    <artifact name="CeridianDemoAPI" groupId="dk.redpill.api" version="1.0.0" type="synapse/api" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/api/CeridianDemoAPI.xml</file>
+    </artifact>
+    <artifact name="CeridianDemoAPI_swagger" groupId="dk.redpill.metadata" version="1.0.0" type="synapse/metadata" serverRole="EnterpriseServiceBus">
+        <file>src/main/resources/metadata/CeridianDemoAPI_swagger.yaml</file>
+    </artifact>
+    <artifact name="CeridianDemoAPI_metadata" groupId="dk.redpill.metadata" version="1.0.0" type="synapse/metadata" serverRole="EnterpriseServiceBus">
+        <file>src/main/resources/metadata/CeridianDemoAPI_metadata.yaml</file>
+    </artifact>
+</artifacts>
