@@ -17,9 +17,13 @@
     </resource>
     <resource methods="GET" uri-template="/employee/{xref}">
         <inSequence>
+            <property expression="wso2:vault-lookup('ceridian.username')" name="ceridian.username" scope="default" type="STRING"/>
+            <property expression="wso2:vault-lookup('ceridian.password')" name="password" scope="default" type="STRING"/>
+            <property expression="wso2:vault-lookup('ceridian.user.domain')" name="ceridian.user.domain" scope="default" type="STRING"/>
+            <property expression="wso2:vault-lookup('ceridian.api.version')" name="ceridian.api.version" scope="default" type="STRING"/>
             <ceridiandayforce.init>
-                <username>$SYSTEM:ceridian.username</username>
-                <password>$SYSTEM:ceridian.password</password>
+                <username>{$ctx:ceridian.username}</username>
+                <password>{$ctx:ceridian.password}</password>
                 <clientNamespace>$SYSTEM:ceridian.user.domain</clientNamespace>
                 <apiVersion>$SYSTEM:ceridian.api.version</apiVersion>
             </ceridiandayforce.init>
