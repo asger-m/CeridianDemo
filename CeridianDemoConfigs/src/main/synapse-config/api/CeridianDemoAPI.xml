@@ -3,11 +3,11 @@
     <resource methods="GET" uri-template="/employees">
         <inSequence>
             <ceridiandayforce.init>
-                <username>DFWSTest</username>
-                <password>DFWSTest</password>
-                <clientNamespace>ustest232-services.dayforcehcm.com/Api/ddn</clientNamespace>
+                <username>{get-property('env','ceridianUsername')}</username>
+                <password>{get-property('env','ceridianPassword')}</password>
+                <clientNamespace>{get-property('env','ceridianClientNS')}</clientNamespace>
                 <httpRequestTimeout>10000</httpRequestTimeout>
-                <apiVersion>V1</apiVersion>
+                <apiVersion>{get-property('env','ceridianAPIVersion')}</apiVersion>
             </ceridiandayforce.init>
             <ceridiandayforce.getEmployees/>
             <send/>
@@ -17,15 +17,17 @@
     </resource>
     <resource methods="GET" uri-template="/employee/{xref}">
         <inSequence>
-            <property expression="wso2:vault-lookup('ceridian.username')" name="ceridian.username" scope="default" type="STRING"/>
-            <property expression="wso2:vault-lookup('ceridian.password')" name="password" scope="default" type="STRING"/>
-            <property expression="wso2:vault-lookup('ceridian.user.domain')" name="ceridian.user.domain" scope="default" type="STRING"/>
-            <property expression="wso2:vault-lookup('ceridian.api.version')" name="ceridian.api.version" scope="default" type="STRING"/>
+            <log level="custom">
+                <property expression="get-property('env','ceridianUsername')" name="ceridian.username"/>
+                <property expression="get-property('env','ceridianPassword')" name="ceridian.password"/>
+                <property expression="get-property('env','ceridianClientNS')" name="ceridian.client.ns"/>
+                <property expression="get-property('env','ceridianAPIVersion')" name="ceridian.api.version"/>
+            </log>
             <ceridiandayforce.init>
-                <username>{$ctx:ceridian.username}</username>
-                <password>{$ctx:ceridian.password}</password>
-                <clientNamespace>$SYSTEM:ceridian.user.domain</clientNamespace>
-                <apiVersion>$SYSTEM:ceridian.api.version</apiVersion>
+                <username>{get-property('env','ceridianUsername')}</username>
+                <password>{get-property('env','ceridianPassword')}</password>
+                <clientNamespace>{get-property('env','ceridianClientNS')}</clientNamespace>
+                <apiVersion>{get-property('env','ceridianAPIVersion')}</apiVersion>
             </ceridiandayforce.init>
             <ceridiandayforce.getEmployeeDetails>
                 <xRefCode>{get-property('uri.var.xref')}</xRefCode>
