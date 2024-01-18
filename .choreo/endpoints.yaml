@@ -1,0 +1,8 @@
+version: 1.0
+endpoints:
+  - name: Ceridian Demo Service
+    port: 8290
+    type: REST
+    networkVisibility: Public
+    context: /
+    schemaFilePath: ./CeridianDemoConfigs/src/main/resources/metadata/CeridianDemoAPI_swagger.yaml
