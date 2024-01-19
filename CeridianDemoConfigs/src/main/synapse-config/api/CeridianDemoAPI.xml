@@ -15,7 +15,7 @@
         <outSequence/>
         <faultSequence/>
     </resource>
-    <resource methods="GET" uri-template="/employee/{xref}">
+    <resource methods="GET" uri-template="/employee/details/{xref}">
         <inSequence>
             <log level="custom">
                 <property expression="get-property('env','ceridianUsername')" name="ceridian.username"/>
@@ -33,6 +33,99 @@
                 <xRefCode>{get-property('uri.var.xref')}</xRefCode>
             </ceridiandayforce.getEmployeeDetails>
             <send/>
+        </inSequence>
+        <outSequence/>
+        <faultSequence/>
+    </resource>
+    <resource methods="GET" uri-template="/employee/properties/{xref}">
+        <inSequence>
+            <log level="custom">
+                <property expression="get-property('env','ceridianUsername')" name="ceridian.username"/>
+                <property expression="get-property('env','ceridianPassword')" name="ceridian.password"/>
+                <property expression="get-property('env','ceridianClientNS')" name="ceridian.client.ns"/>
+                <property expression="get-property('env','ceridianAPIVersion')" name="ceridian.api.version"/>
+            </log>
+            <ceridiandayforce.init>
+                <username>{get-property('env','ceridianUsername')}</username>
+                <password>{get-property('env','ceridianPassword')}</password>
+                <clientNamespace>{get-property('env','ceridianClientNS')}</clientNamespace>
+                <apiVersion>{get-property('env','ceridianAPIVersion')}</apiVersion>
+            </ceridiandayforce.init>
+            <ceridiandayforce.getEmployeeProperties>
+                <xRefCode>{get-property('uri.var.xref')}</xRefCode>
+            </ceridiandayforce.getEmployeeProperties>
+            <send/>
+        </inSequence>
+        <outSequence/>
+        <faultSequence/>
+    </resource>
+    <resource methods="GET" uri-template="/employee/combine/{xref}">
+        <inSequence>
+            <ceridiandayforce.init>
+                <username>{get-property('env','ceridianUsername')}</username>
+                <password>{get-property('env','ceridianPassword')}</password>
+                <clientNamespace>{get-property('env','ceridianClientNS')}</clientNamespace>
+                <apiVersion>{get-property('env','ceridianAPIVersion')}</apiVersion>
+            </ceridiandayforce.init>
+            <clone id="CLONE_01">
+                <target>
+                    <sequence>
+                        <property expression="fn:concat('http://localhost:8290/ceridian/employee/details/',get-property('uri.var.xref'))" name="uri.var.details_endpoint" scope="default" type="STRING"/>
+                        <call>
+                            <endpoint>
+                                <http method="get" uri-template="{uri.var.details_endpoint}">
+                                    <suspendOnFailure>
+                                        <initialDuration>-1</initialDuration>
+                                        <progressionFactor>1</progressionFactor>
+                                    </suspendOnFailure>
+                                    <markForSuspension>
+                                        <retriesBeforeSuspension>0</retriesBeforeSuspension>
+                                    </markForSuspension>
+                                </http>
+                            </endpoint>
+                        </call>
+                        <log level="custom">
+                            <property expression="json-eval($)" name="DetailsResponse"/>
+                        </log>
+                    </sequence>
+                </target>
+                <target>
+                    <sequence>
+                        <property expression="fn:concat('http://localhost:8290/ceridian/employee/properties/',get-property('uri.var.xref'))" name="uri.var.properties_endpoint" scope="default" type="STRING"/>
+                        <call>
+                            <endpoint>
+                                <http method="get" uri-template="{uri.var.properties_endpoint}">
+                                    <suspendOnFailure>
+                                        <initialDuration>-1</initialDuration>
+                                        <progressionFactor>1</progressionFactor>
+                                    </suspendOnFailure>
+                                    <markForSuspension>
+                                        <retriesBeforeSuspension>0</retriesBeforeSuspension>
+                                    </markForSuspension>
+                                </http>
+                            </endpoint>
+                        </call>
+                        <log level="custom">
+                            <property expression="json-eval($)" name="PropertiesResponse"/>
+                        </log>
+                    </sequence>
+                </target>
+            </clone>
+            <log level="custom">
+                <property name="getEmployeeDetails" value="out sequence"/>
+            </log>
+            <property name="dut" scope="default" type="STRING" value=""/>
+            <aggregate id="CLONE_01">
+                <completeCondition>
+                    <messageCount max="-1" min="-1"/>
+                </completeCondition>
+                <onComplete aggregateElementType="root" expression="json-eval($.Data)">
+                    <log level="custom">
+                        <property expression="json-eval($)" name="AggregatedResponse"/>
+                    </log>
+                    <respond/>
+                </onComplete>
+            </aggregate>
         </inSequence>
         <outSequence/>
         <faultSequence/>

@@ -11,7 +11,33 @@ paths:
       responses:
         default:
           description: Default response
-  /employee/{xref}:
+  /employee/details/{xref}:
+    get:
+      parameters:
+      - name: xref
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        default:
+          description: Default response
+  /employee/properties/{xref}:
+    get:
+      parameters:
+      - name: xref
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        default:
+          description: Default response
+  /employee/combine/{xref}:
     get:
       parameters:
       - name: xref
