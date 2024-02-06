@@ -24,6 +24,32 @@ paths:
       responses:
         default:
           description: Default response
+  /employee/contacts/{xref}:
+    get:
+      parameters:
+      - name: xref
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        default:
+          description: Default response
+  /employee/addresses/{xref}:
+    get:
+      parameters:
+      - name: xref
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        default:
+          description: Default response
   /employee/properties/{xref}:
     get:
       parameters:

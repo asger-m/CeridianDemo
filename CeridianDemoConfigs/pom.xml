@@ -213,22 +213,33 @@
         </dependencies>
         <configuration />
       </plugin>
+      <plugin>
+        <groupId>org.wso2.maven</groupId>
+        <artifactId>wso2-esb-sequence-plugin</artifactId>
+        <version>5.2.42</version>
+        <extensions>true</extensions>
+        <executions>
+          <execution>
+            <id>sequence</id>
+            <phase>process-resources</phase>
+            <goals>
+              <goal>pom-gen</goal>
+            </goals>
+            <configuration>
+              <artifactLocation>.</artifactLocation>
+              <typeList>${artifact.types}</typeList>
+            </configuration>
+          </execution>
+        </executions>
+        <dependencies>
+          <dependency>
+            <groupId>com.sun.activation</groupId>
+            <artifactId>javax.activation</artifactId>
+            <version>1.2.0</version>
+          </dependency>
+        </dependencies>
+        <configuration />
+      </plugin>
     </plugins>
   </build>
-  <profiles>
-    <profile>
-      <id>DEV</id>
-      <activation>
-        <activeByDefault>true</activeByDefault>
-      </activation>
-      <properties>
-        <ceridian.timeout>10000</ceridian.timeout>
-        <ceridian.api.version>V1</ceridian.api.version>
-        <ceridian.username>DFWSTest</ceridian.username>
-        <ceridian.user.domain>ustest232-services.dayforcehcm.com/Api/ddn</ceridian.user.domain>
-        <ceridian.password>DFWSTest</ceridian.password>
-      </properties>
-      <build />
-    </profile>
-    </profiles>
 </project>

@@ -8,4 +8,7 @@
     <artifact name="CeridianDemoAPI_metadata" groupId="dk.redpill.metadata" version="1.0.0" type="synapse/metadata" serverRole="EnterpriseServiceBus">
         <file>src/main/resources/metadata/CeridianDemoAPI_metadata.yaml</file>
     </artifact>
+    <artifact name="get-sub-element-sequence" groupId="dk.redpill.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/get-sub-element-sequence.xml</file>
+    </artifact>
 </artifacts>

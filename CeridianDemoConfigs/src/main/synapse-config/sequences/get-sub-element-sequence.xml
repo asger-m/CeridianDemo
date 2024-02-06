@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="get-sub-element-sequence" trace="disable" xmlns="http://ws.apache.org/ns/synapse">
+    <property expression="fn:concat(get-property('SubElement','/'))" name="uri.var.sub_endpoint" scope="default" type="STRING"/>
+    <property expression="fn:concat(get-property('uri.var.sub_endpoint'),get-property('uri.var.xref'))" name="uri.var.sub_endpoint" scope="default" type="STRING"/>
+    <property expression="fn:concat('http://localhost:8290/ceridian/employee/',get-property('uri.var.sub_endpoint'))" name="uri.var.sub_endpoint" scope="default" type="STRING"/>
+    <call>
+        <endpoint>
+            <http method="get" uri-template="{uri.var.sub_endpoint}">
+                <suspendOnFailure>
+                    <initialDuration>-1</initialDuration>
+                    <progressionFactor>1</progressionFactor>
+                </suspendOnFailure>
+                <markForSuspension>
+                    <retriesBeforeSuspension>0</retriesBeforeSuspension>
+                </markForSuspension>
+            </http>
+        </endpoint>
+    </call>
+    <payloadFactory media-type="json">
+        <format>{ "$1": $2 }</format>
+        <args>
+            <arg evaluator="json" expression="get-property('SubElement)"/>
+            <arg evaluator="json" expression="$.Data"/>
+        </args>
+    </payloadFactory>
+    <log level="custom">
+        <property expression="get-property('SubElement')" name="SubElement"/>
+        <property expression="json-eval($)" name="Response"/>
+    </log>
+</sequence>
