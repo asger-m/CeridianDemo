@@ -58,7 +58,7 @@
       <plugin>
         <groupId>org.wso2.maven</groupId>
         <artifactId>wso2-esb-api-plugin</artifactId>
-        <version>5.2.42</version>
+        <version>5.2.74</version>
         <extensions>true</extensions>
         <configuration>
           <artifact>CeridianDemoAPI.xml</artifact>
